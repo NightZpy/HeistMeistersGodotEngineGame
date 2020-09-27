@@ -1,33 +1,34 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://GFX/Interface/Fonts/kenvector_future_thin.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Interface/button_hover_style.tres" type="StyleBox" id=2]
 [ext_resource path="res://Interface/button_normal_style.tres" type="StyleBox" id=3]
 [ext_resource path="res://Interface/button_pressed_style.tres" type="StyleBox" id=4]
 [ext_resource path="res://GFX/Interface/Fonts/kenvector_future.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://GFX/Interface/PNG/metalPanel.png" type="Texture" id=6]
-[ext_resource path="res://GFX/Interface/PNG/glassPanel.png" type="Texture" id=7]
-[ext_resource path="res://GFX/Interface/PNG/dotRed.png" type="Texture" id=8]
-[ext_resource path="res://Interface/button_ok_hover_style.tres" type="StyleBox" id=9]
-[ext_resource path="res://Interface/button_ok_pressed_style.tres" type="StyleBox" id=10]
-[ext_resource path="res://Interface/button_ok_normal_style.tres" type="StyleBox" id=11]
+[ext_resource path="res://Interface/Numpad.gd" type="Script" id=6]
+[ext_resource path="res://GFX/Interface/PNG/metalPanel.png" type="Texture" id=7]
+[ext_resource path="res://GFX/Interface/PNG/glassPanel.png" type="Texture" id=8]
+[ext_resource path="res://GFX/Interface/PNG/dotRed.png" type="Texture" id=9]
+[ext_resource path="res://Interface/button_ok_hover_style.tres" type="StyleBox" id=10]
+[ext_resource path="res://Interface/button_ok_pressed_style.tres" type="StyleBox" id=11]
+[ext_resource path="res://Interface/button_ok_normal_style.tres" type="StyleBox" id=12]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 18
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 5 )
 
-[sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
 Button/colors/font_color = Color( 0, 0, 0, 1 )
 Button/colors/font_color_disabled = Color( 0.286275, 0.282353, 0.282353, 0.2 )
 Button/colors/font_color_hover = Color( 0, 0, 0, 1 )
 Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
 Button/constants/hseparation = 2
-Button/fonts/font = SubResource( 3 )
+Button/fonts/font = SubResource( 1 )
 Button/styles/disabled = null
 Button/styles/focus = null
 Button/styles/hover = ExtResource( 2 )
@@ -35,19 +36,19 @@ Button/styles/normal = ExtResource( 3 )
 Button/styles/pressed = ExtResource( 4 )
 
 [node name="Numpad" type="Popup"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -724.0
 margin_bottom = -200.0
 rect_min_size = Vector2( 300, 400 )
-theme = SubResource( 2 )
+theme = SubResource( 3 )
+script = ExtResource( 6 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 300, 400 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 patch_margin_left = 10
 patch_margin_top = 10
 patch_margin_right = 10
@@ -61,7 +62,6 @@ margin_bottom = -10.0
 custom_constants/separation = 35
 
 [node name="DisplayContainer" type="CenterContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_right = 300.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 250, 100 )
@@ -71,19 +71,21 @@ margin_left = 25.0
 margin_right = 275.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 250, 100 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/DisplayContainer"]
+[node name="Display" type="Label" parent="VBoxContainer/DisplayContainer"]
 margin_left = 43.0
 margin_top = 36.0
 margin_right = 257.0
 margin_bottom = 63.0
+size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Display Test"
+align = 1
 
 [node name="ButtonContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_top = 135.0
@@ -91,9 +93,10 @@ margin_right = 300.0
 margin_bottom = 310.0
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/ButtonContainer"]
-margin_left = 85.0
-margin_right = 215.0
-margin_bottom = 175.0
+margin_left = 150.0
+margin_top = 87.0
+margin_right = 150.0
+margin_bottom = 87.0
 custom_constants/vseparation = 5
 custom_constants/hseparation = 5
 columns = 3
@@ -164,11 +167,11 @@ margin_bottom = 130.0
 rect_min_size = Vector2( 40, 40 )
 text = "9"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ButtonContainer/GridContainer"]
+[node name="StatusLight" type="TextureRect" parent="VBoxContainer/ButtonContainer/GridContainer"]
 margin_top = 135.0
 margin_right = 40.0
 margin_bottom = 175.0
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 expand = true
 
 [node name="ButtonNumber0" type="Button" parent="VBoxContainer/ButtonContainer/GridContainer"]
@@ -185,7 +188,14 @@ margin_top = 135.0
 margin_right = 130.0
 margin_bottom = 175.0
 rect_min_size = Vector2( 40, 40 )
-custom_styles/hover = ExtResource( 9 )
-custom_styles/pressed = ExtResource( 10 )
-custom_styles/normal = ExtResource( 11 )
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/normal = ExtResource( 12 )
 text = "ok"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

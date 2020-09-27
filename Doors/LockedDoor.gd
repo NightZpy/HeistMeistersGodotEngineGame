@@ -8,3 +8,8 @@ func _on_Door_body_exited(body):
 	if body.collision_layer == 1:
 		can_click = false
 		$CanvasLayer/Numpad.hide()
+
+
+func _on_Numpad_right_combination():
+	open()
+	$CanvasLayer/Numpad.hide()
