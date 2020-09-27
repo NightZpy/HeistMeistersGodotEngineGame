@@ -19,6 +19,10 @@ config/name="HeistMeisters"
 run/main_scene="res://Levels/Level_1.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+CombinationGenerator="*res://scripts/CombinationGenerator.gd"
+
 [input]
 
 move_up={
