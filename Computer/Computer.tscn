@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Computer/Computer.gd" type="Script" id=1]
 [ext_resource path="res://GFX/PNG/Tiles/tile_537.png" type="Texture" id=2]
 [ext_resource path="res://Computer/ComputerPopup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Computer/ComputerPopup.gd" type="Script" id=4]
+[ext_resource path="res://GFX/PNG/Tiles/tile_519.png" type="Texture" id=5]
+[ext_resource path="res://Interface/NumpadTheme.tres" type="Theme" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 37.4524, 29.7863 )
@@ -24,6 +27,23 @@ shape = SubResource( 1 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ComputerPopup" parent="CanvasLayer" instance=ExtResource( 3 )]
+script = ExtResource( 4 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 26.3554, -2.46735e-007 )
+rotation = 1.5708
+scale = Vector2( 1, 0.823605 )
+enabled = false
+texture = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -49.8504
+margin_top = 5.79136
+margin_right = 30.1496
+margin_bottom = 32.7914
+rect_scale = Vector2( 0.401903, 0.434514 )
+theme = ExtResource( 6 )
+text = "test"
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_shape_exited" from="Area2D" to="." method="_on_Area2D_body_shape_exited"]
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
