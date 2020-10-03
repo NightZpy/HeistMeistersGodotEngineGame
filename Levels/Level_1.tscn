@@ -41,6 +41,9 @@ position = Vector2( 1489.95, 1010.61 )
 [node name="Furniture" parent="Navigation2D" index="2"]
 tile_data = PoolIntArray( -131059, -1073741820, 0, 786445, 0, 0, 786446, 1, 0, 786447, 1, 0, 851979, -1610612736, 0, 851982, 1610612740, 0, 917515, -1073741823, 0, 917516, -1073741820, 0, 983051, -1073741823, 0 )
 
+[node name="Player" parent="." index="3"]
+editor/display_folded = false
+
 [node name="Camera" parent="Cameras" index="0" instance=ExtResource( 2 )]
 position = Vector2( 617.001, -236.77 )
 rotation = 2.43773

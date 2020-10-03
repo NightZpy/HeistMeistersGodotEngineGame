@@ -23,14 +23,20 @@ func cycle_vision_mode():
 func dark_mode():
 	color = DARK
 	turn_off_night_vision_mode_sound()
+	get_tree().call_group('lights', 'show')
+	get_tree().call_group('labels', 'hide')
 
 func mist_mode():
 	color = MIST
 	turn_off_night_vision_mode_sound()
+	get_tree().call_group('lights', 'show')
+	get_tree().call_group('labels', 'hide')
 	
 func night_vision_mode():
 	color = NIGHT_VISION
 	turn_on_night_vision_mode_sound()
+	get_tree().call_group('lights', 'hide')
+	get_tree().call_group('labels', 'show')
 	
 func turn_off_night_vision_mode_sound(): 	
 	play_audio("res://SFX/nightvision_off.wav")	
