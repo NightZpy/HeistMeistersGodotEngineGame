@@ -4,9 +4,11 @@ var motion = Vector2()
 
 const PLAYER_SPRITE = "res://GFX/PNG/Hitman 1/hitman1_stand.png"
 const PLAYER_OCCLUDER = "res://Characters/HumanOccluder.tres"
+const PLAYER_LIGHT = "res://GFX/PNG/Hitman 1/hitman1_stand.png"
 
 const BOX_SPRITE = "res://GFX/PNG/Tiles/tile_130.png"
 const BOX_OCCLUDER = "res://Characters/BoxOccluder.tres"
+const BOX_LIGHT = "res://GFX/PNG/Tiles/tile_130.png"
 
 var disguise = false
 
@@ -52,6 +54,7 @@ func toggle_disguise():
 
 func reveal():
 	$Sprite.texture = load(PLAYER_SPRITE)
+	$Light2D.texture = load(PLAYER_LIGHT)
 	disguise = false
 	collision_layer = 1
 	$"LightOccluder2D".occluder = load(PLAYER_OCCLUDER)
@@ -59,6 +62,7 @@ func reveal():
 
 func disguise():
 	$Sprite.texture = load(BOX_SPRITE)
+	$Light2D.texture = load(BOX_LIGHT)
 	disguise = true
 	collision_layer = 16
 	$"LightOccluder2D".occluder = load(BOX_OCCLUDER)
