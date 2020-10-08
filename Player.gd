@@ -2,6 +2,14 @@ extends "res://Characters/TemplateCharacter.gd"
 
 var motion = Vector2()
 
+const PLAYER_SPRITE = "res://GFX/PNG/Hitman 1/hitman1_stand.png"
+const PLAYER_OCCLUDER = "res://Characters/HumanOccluder.tres"
+
+const BOX_SPRITE = "res://GFX/PNG/Tiles/tile_130.png"
+const BOX_OCCLUDER = "res://Characters/BoxOccluder.tres"
+
+var disguise = false
+
 func _physics_process(delta):
 	update_movement()
 	move_and_slide(motion)
@@ -25,8 +33,32 @@ func update_movement():
 
 func _input(event):
 	if Input.is_action_just_released("switch_vision_mode"):
-		turn_off_torch()	
+		turn_off_torch()
+	
+	if Input.is_action_just_pressed("Toggle_disguise"):
+		toggle_disguise()	
 	
 func turn_off_torch():
 	#$Torch.enabled = not $Torch.enabled
 	get_tree().call_group("Interface", "cycle_vision_mode")
+	
+
+func toggle_disguise():
+	if disguise:
+		reveal()
+	else:
+		disguise()
+		
+
+func reveal():
+	$Sprite.texture = load(PLAYER_SPRITE)
+	disguise = false
+	collision_layer = 1
+	$"LightOccluder2D".occluder = load(PLAYER_OCCLUDER)
+
+
+func disguise():
+	$Sprite.texture = load(BOX_SPRITE)
+	disguise = true
+	collision_layer = 16
+	$"LightOccluder2D".occluder = load(BOX_OCCLUDER)
