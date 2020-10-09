@@ -10,11 +10,26 @@ const BOX_SPRITE = "res://GFX/PNG/Tiles/tile_130.png"
 const BOX_OCCLUDER = "res://Characters/BoxOccluder.tres"
 const BOX_LIGHT = "res://GFX/PNG/Tiles/tile_130.png"
 
+var velocity_multiplier = 1
+export var disguise_slowdown = 0.25
+export var disguise_duration = 5
+export var number_of_disguises = 3
 var disguise = false
+
+
+func _ready():
+	$Timer.wait_time = disguise_duration
+	reveal()
+
 
 func _physics_process(delta):
 	update_movement()
-	move_and_slide(motion)
+	move_and_slide(motion * velocity_multiplier)
+	
+	if disguise:
+		$DisguiseLabel.text = str($Timer.time_left).pad_decimals(2)
+		$DisguiseLabel.rect_rotation = -rotation_degrees
+
 	
 func update_movement():
 	look_at(get_global_mouse_position())
@@ -48,7 +63,7 @@ func turn_off_torch():
 func toggle_disguise():
 	if disguise:
 		reveal()
-	else:
+	elif number_of_disguises > 0:
 		disguise()
 		
 
@@ -56,13 +71,19 @@ func reveal():
 	$Sprite.texture = load(PLAYER_SPRITE)
 	$Light2D.texture = load(PLAYER_LIGHT)
 	disguise = false
+	velocity_multiplier = 1
 	collision_layer = 1
 	$"LightOccluder2D".occluder = load(PLAYER_OCCLUDER)
+	$DisguiseLabel.hide()
 
 
 func disguise():
 	$Sprite.texture = load(BOX_SPRITE)
 	$Light2D.texture = load(BOX_LIGHT)
 	disguise = true
+	velocity_multiplier = disguise_slowdown
+	number_of_disguises -= 1
 	collision_layer = 16
 	$"LightOccluder2D".occluder = load(BOX_OCCLUDER)
+	$DisguiseLabel.show()
+	$Timer.start()
