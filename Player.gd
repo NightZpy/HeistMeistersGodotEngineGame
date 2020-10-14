@@ -55,6 +55,9 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("Toggle_disguise"):
 		toggle_disguise()	
+		
+	if Input.is_action_just_pressed("Toggle_main_menu"):
+		get_tree().change_scene("res://Levels/Lobby.tscn")
 	
 func turn_off_torch():
 	#$Torch.enabled = not $Torch.enabled
