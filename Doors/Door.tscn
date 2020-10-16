@@ -74,7 +74,6 @@ visible = false
 shape = SubResource( 2 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="DoorSprite/StaticBody2D"]
-visible = false
 occluder = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
